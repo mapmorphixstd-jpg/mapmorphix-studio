@@ -1,0 +1,413 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#05070c">
+<title>MapMorphix Studio | Digital Creative Studio</title>
+<style>
+:root{--bg:#05070c;--panel:#0c1422;--line:#24344c;--blue:#176bff;--cyan:#00e5ff;--silver:#dce6f5;--muted:#aab7cb}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:85px}
+body{margin:0;background:radial-gradient(ellipse at top left,#10254b 0,transparent 35%),var(--bg);color:#f4f8ff;font:16px/1.7 Arial,sans-serif}
+a{color:inherit;text-decoration:none}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.wrap{width:min(1120px,90%);margin:auto}
+header{position:sticky;top:0;z-index:5;background:#05070cf2;border-bottom:1px solid #24344c}
+nav,.nav,.brand,.actions,.tags,.filters,.foot{display:flex;align-items:center;gap:15px}
+.nav{min-height:78px;justify-content:space-between}
+.brand{font-weight:900;letter-spacing:1px;gap:10px}
+.brand span{color:var(--cyan)}
+.logo{width:46px;height:46px;flex-shrink:0;filter:drop-shadow(0 0 8px #087cff70)}
+nav{gap:19px}
+nav a{font-size:.88rem;color:#dce6f5}
+nav a:hover{color:var(--cyan)}
+.menu{display:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:11px 17px;border:1px solid var(--line);border-radius:9px;background:#ffffff07;color:white;font-weight:700}
+.btn:hover{border-color:var(--cyan);transform:translateY(-2px)}
+.primary{background:linear-gradient(110deg,#176bff,#087ee9);border-color:#168bff}
+section{padding:80px 0}
+.hero{min-height:78vh;display:grid;align-items:center}
+.heroGrid,.about,.checkoutGrid{display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center}
+.eyebrow{font-size:.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);font-weight:800}
+h1{font-size:clamp(3rem,7vw,6rem);line-height:1;letter-spacing:-3px;margin:18px 0}
+h2{font-size:clamp(2rem,4vw,3.5rem);line-height:1.1;margin:10px 0 18px}
+h3{line-height:1.2}
+.gradient{background:linear-gradient(110deg,#e7efff,#00e5ff,#176bff);color:transparent;background-clip:text}
+p{color:var(--muted)}
+.lead{max-width:570px}
+.actions{flex-wrap:wrap;margin-top:25px}
+.heroArt,.logoBox{min-height:300px;border:1px solid var(--line);border-radius:20px;background:radial-gradient(ellipse,#12315a,#080c14 72%);display:grid;place-items:center;position:relative}
+.heroArt .logo{width:190px;height:190px}
+.heroArt:after{content:"";position:absolute;width:230px;height:230px;border:1px solid #00e5ff55;border-radius:50%;pointer-events:none}
+.heroTag{position:absolute;bottom:18px;right:18px;font-size:.8rem;background:#101827;padding:10px;border:1px solid var(--line);border-radius:8px}
+.intro{max-width:700px;margin-bottom:30px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.card,.panel{background:linear-gradient(145deg,#101827,#090d15);border:1px solid var(--line);border-radius:16px;padding:23px}
+.card:hover{border-color:#168bff;transform:translateY(-3px)}
+.symbol{font-size:1.7rem;color:var(--cyan);background:#087cff19;border:1px solid #168bff66;width:52px;height:52px;border-radius:13px;display:grid;place-items:center}
+.tags{flex-wrap:wrap;gap:7px;margin:15px 0}
+.tag{font-size:.75rem;padding:4px 8px;border:1px solid var(--line);border-radius:6px;color:#dce6f5}
+.serviceFoot,.summaryLine{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.muted,.small{font-size:.82rem;color:var(--muted)}
+.filters{flex-wrap:wrap;margin:20px 0}
+.filter,.choice{background:#0b111c;border:1px solid var(--line);border-radius:8px;color:white;padding:9px 13px}
+.filter.active,.choice.active{border-color:var(--cyan);background:#00cfff18}
+.preview{height:170px;border-radius:12px;background:radial-gradient(ellipse,#15365b,#080c14 70%);display:grid;place-items:center;margin-bottom:16px}
+.preview div{padding:22px;border:1px solid #40caff77;text-align:center;transform:rotate(-3deg)}
+.preview strong{font-size:1.5rem}
+.preview small{display:block;color:var(--cyan);letter-spacing:2px}
+.price{font-size:1.3rem;font-weight:bold}
+.logoBox .logo{width:190px;height:190px}
+.faq{max-width:850px;display:grid;gap:10px}
+details{padding:16px;border:1px solid var(--line);border-radius:10px;background:#ffffff04}
+summary{cursor:pointer;font-weight:bold}
+footer{border-top:1px solid var(--line);padding:24px 0}
+.foot{justify-content:space-between;flex-wrap:wrap}
+.field{display:grid;gap:6px;margin-bottom:14px}
+.field label{font-size:.85rem;color:#dce6f5}
+.field input,.field textarea,.field select{width:100%;padding:12px;background:#070b13;color:white;border:1px solid var(--line);border-radius:8px}
+.field textarea{min-height:110px;resize:vertical}
+.contactChoices{display:flex;gap:8px;margin-bottom:12px}
+.choice{flex:1}
+.contactField{display:none}
+.contactField.active{display:grid}
+.notice{font-size:.83rem;padding:12px;border:1px solid #267bcf66;border-radius:9px}
+.summaryLine{padding:12px 0;border-bottom:1px solid var(--line)}
+.status{display:none;padding:12px;margin-top:12px;border:1px solid var(--line);border-radius:8px;overflow-wrap:anywhere}
+.status.show{display:block}
+.status.error{border-color:#ff7777}
+.status.success{border-color:#3adca0}
+#checkout{display:none}
+#checkout.active{display:block}
+#site.hidden{display:none}
+.back{background:none;border:0;color:var(--cyan);padding:0;margin-bottom:20px}
+@media(max-width:800px){.heroGrid,.about,.checkoutGrid{grid-template-columns:1fr}.grid{grid-template-columns:1fr}}
+@media(max-width:650px){.menu{display:block;background:none;border:0;color:white;font-size:1.5rem}nav{display:none;position:absolute;top:78px;left:0;right:0;background:#080c15;padding:20px;flex-direction:column;align-items:stretch}nav.open{display:flex}.brand{font-size:.8rem}section{padding:60px 0}.hero{min-height:auto}.heroArt{min-height:250px}.panel,.card{padding:18px}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="wrap nav">
+<a class="brand" href="#home">
+<svg class="logo" viewBox="0 0 100 100" role="img" aria-label="MapMorphix logo">
+<defs><linearGradient id="neon" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00e5ff"/><stop offset=".55" stop-color="#176bff"/><stop offset="1" stop-color="#dce6f5"/></linearGradient></defs>
+<path d="M50 4 91 27 91 73 50 96 9 73 9 27Z" fill="#070c17" stroke="url(#neon)" stroke-width="2"/>
+<path d="M24 69V32L40 51L50 38L60 51L76 32V69" fill="none" stroke="url(#neon)" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M34 77H66" stroke="#00e5ff" stroke-width="2"/>
+</svg>
+MAPMORPHIX <span>STUDIO</span>
+</a>
+<button class="menu" id="menu" aria-label="Open menu">☰</button>
+<nav id="nav">
+<a href="#home">Home</a><a href="#services">Services</a><a href="#work">Portfolio</a><a href="#about">About</a><a href="#packages">Packages</a><a href="#contact">Contact</a>
+<a class="btn primary" href="#services">Order now ↗</a>
+</nav>
+</div>
+</header>
+
+<div id="site">
+<main>
+<section class="hero" id="home">
+<div class="wrap heroGrid">
+<div>
+<div class="eyebrow">Independent digital creative studio</div>
+<h1>Make your brand <span class="gradient">impossible to ignore.</span></h1>
+<p class="lead">Websites, graphic design, advertising creatives and interactive live invitations. Clean design, smooth experiences, made for your next idea.</p>
+<div class="actions"><a class="btn primary" href="#services">Explore services ↗</a><a class="btn" href="#work">View portfolio</a></div>
+</div>
+<div class="heroArt">
+<svg class="logo" viewBox="0 0 100 100" role="img" aria-label="MapMorphix neon logo">
+<defs><linearGradient id="heroNeon" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00e5ff"/><stop offset=".55" stop-color="#176bff"/><stop offset="1" stop-color="#dce6f5"/></linearGradient></defs>
+<path d="M50 4 91 27 91 73 50 96 9 73 9 27Z" fill="#070c17" stroke="url(#heroNeon)" stroke-width="2"/>
+<path d="M24 69V32L40 51L50 38L60 51L76 32V69" fill="none" stroke="url(#heroNeon)" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M34 77H66" stroke="#00e5ff" stroke-width="2"/>
+</svg>
+<div class="heroTag">✦ Creative thinking. Clean execution.</div>
+</div>
+</div>
+</section>
+
+<section id="services">
+<div class="wrap">
+<div class="intro"><div class="eyebrow">What we do</div><h2>Four ways to <span class="gradient">stand out.</span></h2><p>Choose a service and package, describe your requirements and submit your project request.</p></div>
+<div class="grid" id="servicesGrid"></div>
+</div>
+</section>
+
+<section id="work">
+<div class="wrap">
+<div class="intro"><div class="eyebrow">Creative showcase</div><h2>Ideas made <span class="gradient">visual.</span></h2><p>Sample concepts showing possible creative directions.</p></div>
+<div class="filters" id="filters">
+<button class="filter active" data-filter="all">All</button><button class="filter" data-filter="website">Websites</button><button class="filter" data-filter="graphic">Graphics</button><button class="filter" data-filter="ads">Ads</button><button class="filter" data-filter="invites">Invitations</button>
+</div>
+<div class="grid" id="workGrid"></div>
+</div>
+</section>
+
+<section id="about">
+<div class="wrap about">
+<div class="logoBox">
+<svg class="logo" viewBox="0 0 100 100" role="img" aria-label="MapMorphix logo">
+<defs><linearGradient id="aboutNeon" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00e5ff"/><stop offset=".55" stop-color="#176bff"/><stop offset="1" stop-color="#dce6f5"/></linearGradient></defs>
+<path d="M50 4 91 27 91 73 50 96 9 73 9 27Z" fill="#070c17" stroke="url(#aboutNeon)" stroke-width="2"/>
+<path d="M24 69V32L40 51L50 38L60 51L76 32V69" fill="none" stroke="url(#aboutNeon)" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M34 77H66" stroke="#00e5ff" stroke-width="2"/>
+</svg>
+</div>
+<div><div class="eyebrow">About MapMorphix</div><h2>Creative thinking.<br><span class="gradient">Clear execution.</span></h2><p>We help businesses and creators present their ideas with a professional digital presence and consistent visual design.</p><p>Every project starts with a clear brief, an agreed scope, and a quote before work begins.</p></div>
+</div>
+</section>
+
+<section id="packages">
+<div class="wrap">
+<div class="intro"><div class="eyebrow">Packages</div><h2>Pick your <span class="gradient">starting point.</span></h2><p>Every project receives a custom quote. The final scope, price and timeline are confirmed before work begins.</p></div>
+<div class="grid" id="packageGrid"></div>
+</div>
+</section>
+
+<section id="faq">
+<div class="wrap">
+<div class="intro"><div class="eyebrow">FAQs</div><h2>Good to <span class="gradient">know.</span></h2></div>
+<div class="faq">
+<details><summary>How do I place an order?</summary><p>Choose a service and package, describe your project, and provide at least one valid contact method.</p></details>
+<details><summary>Is payment taken on this website?</summary><p>No. The studio confirms the project scope and price before payment.</p></details>
+<details><summary>Will my order be emailed automatically?</summary><p>Automatic notifications require the backend to be deployed and configured with email credentials.</p></details>
+<details><summary>How are order numbers assigned?</summary><p>The planned server-side numbering starts at A0001 and continues through B0001 after A9999. A database-backed server is required for globally unique numbers.</p></details>
+</div>
+</div>
+</section>
+
+<section id="contact">
+<div class="wrap about">
+<div><div class="eyebrow">Contact the studio</div><h2>Your next idea starts <span class="gradient">here.</span></h2><p>For enquiries, email <a href="mailto:mapmorphixstd@gmail.com">mapmorphixstd@gmail.com</a>.</p><p><b>Services:</b> Website Design · Graphic Design · Ads · Live Invitations</p><p>Use the checkout form for a structured project request.</p></div>
+<form class="panel" id="enquiry">
+<h2>Project enquiry</h2>
+<div class="field"><label for="enName">Your name *</label><input id="enName" required maxlength="100"></div>
+<div class="field"><label for="enContact">Email or phone *</label><input id="enContact" required maxlength="150"></div>
+<div class="field"><label for="enService">Service *</label><select id="enService" required><option value="">Choose service</option><option>Website Design</option><option>Graphic Design</option><option>Ads</option><option>Live Invitations</option></select></div>
+<div class="field"><label for="enBrief">Project details *</label><textarea id="enBrief" required maxlength="3000"></textarea></div>
+<button class="btn primary" type="submit">Prepare email enquiry ↗</button>
+<p class="small">This opens your email app. It does not submit a tracked order.</p>
+</form>
+</div>
+</section>
+</main>
+<footer><div class="wrap foot">
+<a class="brand" href="#home">MAPMORPHIX <span>STUDIO</span></a>
+<p class="small">© <span id="year"></span> MapMorphix Studio</p>
+<a class="small" href="mailto:mapmorphixstd@gmail.com">Contact by email</a>
+</div></footer>
+</div>
+
+<section id="checkout">
+<div class="wrap">
+<button class="back" id="back">← Back to website</button>
+<h2>Checkout <span class="gradient">· MapMorphix Studio</span></h2>
+<div class="checkoutGrid">
+<div class="panel">
+<h2>Your project details</h2>
+<form id="orderForm">
+<div class="field"><label for="name">Full name *</label><input id="name" required maxlength="100" autocomplete="name"></div>
+<div class="field"><label for="company">Business / brand (optional)</label><input id="company" maxlength="120"></div>
+<div class="field"><label>Contact method (at least one required) *</label><div class="contactChoices">
+<button type="button" class="choice active" data-contact="email">Email</button>
+<button type="button" class="choice" data-contact="phone">Phone</button>
+<button type="button" class="choice" data-contact="whatsapp">WhatsApp</button>
+</div></div>
+<div class="field contactField active" id="emailField"><label for="email">Email address</label><input id="email" type="email" placeholder="you@example.com"></div>
+<div class="field contactField" id="phoneField"><label for="phone">Phone number</label><input id="phone" type="tel" placeholder="+92..."></div>
+<div class="field contactField" id="whatsappField"><label for="whatsapp">WhatsApp number</label><input id="whatsapp" type="tel" placeholder="+92..."></div>
+<div class="field"><label for="brief">Project requirements *</label><textarea id="brief" required maxlength="4000" placeholder="Describe what you need..."></textarea></div>
+<div class="field"><label for="budget">Budget (optional)</label><select id="budget"><option value="">I'll discuss the budget</option><option>Under PKR 5,000</option><option>PKR 5,000–15,000</option><option>PKR 15,000–40,000</option><option>PKR 40,000+</option></select></div>
+<p class="notice">No payment is taken here. We confirm the scope, price and timeline with you.</p>
+<button class="btn primary" id="submitOrder" type="submit">Send project request ↗</button>
+<div id="status" class="status" role="status" aria-live="polite"></div>
+</form>
+</div>
+<aside class="panel"><h2>Order summary</h2>
+<div class="summaryLine"><span>Service</span><b id="sumService">—</b></div>
+<div class="summaryLine"><span>Package</span><b id="sumPackage">—</b></div>
+<div class="summaryLine"><span>Price</span><b>Custom quote</b></div>
+<p class="small">This HTML-only version cannot assign a globally unique order number or send an order notification by itself. Those require a connected backend.</p>
+</aside>
+</div>
+</div>
+</section>
+
+<script>
+const EMAIL_TO="mapmorphixstd@gmail.com";
+
+/* To enable automatic order submission, deploy your backend and put its
+   endpoint URL here. Leave blank until a real backend exists. */
+const ORDER_API_URL="";
+
+const services=[
+{id:"website",name:"Website Design",icon:"⌘",desc:"Responsive websites that make your business easy to understand and explore.",tags:["Business websites","Landing pages","Portfolio sites"],packages:["Landing Page","Business Website","Advanced Website"]},
+{id:"graphic",name:"Graphic Design",icon:"▧",desc:"Coordinated visuals for brands, social media, promotions and campaigns.",tags:["Social posts","Posters","Brand graphics"],packages:["Single Design","Social Design Pack","Campaign Pack"]},
+{id:"ads",name:"Ads",icon:"◈",desc:"Clear, bold advertising creatives designed to communicate your offer.",tags:["Ad creatives","Promotions","Campaign visuals"],packages:["Single Ad","Ad Set","Campaign Creative Pack"]},
+{id:"invites",name:"Live Invitations",icon:"✧",desc:"Interactive digital invitations for events, celebrations and launches.",tags:["Interactive invites","Event pages","Digital RSVPs"],packages:["Digital Invitation","Animated Invitation","Live Invitation Page"]}
+];
+
+const concepts=[
+{id:"website",title:"NEXUS Digital",type:"Website concept",word:"NEXUS",sub:"BUILT FOR WHAT'S NEXT"},
+{id:"graphic",title:"FORM / Objects",type:"Graphic design concept",word:"FORM",sub:"DESIGNED WITH INTENT"},
+{id:"ads",title:"NIGHT SHIFT",type:"Advertising concept",word:"NIGHT SHIFT",sub:"MAKE YOUR MOVE"},
+{id:"invites",title:"The Celebration",type:"Invitation concept",word:"YOU'RE INVITED",sub:"A DAY TO REMEMBER"}
+];
+
+const $=s=>document.querySelector(s);
+let chosenService=null,chosenPackage=null,contactMethod="email";
+
+function renderServices(){
+$("#servicesGrid").innerHTML=services.map(s=>`
+<article class="card">
+<div class="symbol">${s.icon}</div><h3>${s.name}</h3><p>${s.desc}</p>
+<div class="tags">${s.tags.map(t=>`<span class="tag">${t}</span>`).join("")}</div>
+<div class="serviceFoot"><span class="muted">Custom quote</span>
+<button class="btn primary" data-order="${s.id}" data-pack="0">Choose ↗</button></div>
+</article>`).join("");
+}
+
+function renderWork(filter="all"){
+$("#workGrid").innerHTML=concepts.filter(c=>filter==="all"||c.id===filter).map(c=>`
+<article class="card"><div class="preview"><div><strong>${c.word}</strong><small>${c.sub}</small></div></div>
+<span class="eyebrow">${c.type}</span><h3>${c.title}</h3>
+<button class="btn" data-order="${c.id}" data-pack="0">Request similar ↗</button></article>`).join("");
+}
+
+function renderPackages(){
+const selections=[
+{id:"website",n:0},{id:"graphic",n:1},{id:"ads",n:1},{id:"invites",n:2}
+];
+$("#packageGrid").innerHTML=selections.map((p,i)=>{
+const s=services.find(x=>x.id===p.id);
+return `<article class="card"><div class="eyebrow">${i===1?"Popular choice":"Starting package"}</div>
+<h3>${s.packages[p.n]}</h3><p>${s.desc}</p><div class="price">Custom quote</div>
+<p class="muted">Scope and price confirmed before work begins.</p>
+<button class="btn ${i===1?"primary":""}" data-order="${s.id}" data-pack="${p.n}">Choose package ↗</button></article>`;
+}).join("");
+}
+
+renderServices();
+renderWork();
+renderPackages();
+$("#year").textContent=new Date().getFullYear();
+
+$("#menu").onclick=()=>$("#nav").classList.toggle("open");
+document.querySelectorAll("nav a").forEach(a=>a.addEventListener("click",()=>$("#nav").classList.remove("open")));
+
+$("#filters").onclick=e=>{
+const b=e.target.closest("[data-filter]");
+if(!b)return;
+document.querySelectorAll(".filter").forEach(x=>x.classList.toggle("active",x===b));
+renderWork(b.dataset.filter);
+};
+
+function openCheckout(id,index){
+chosenService=services.find(s=>s.id===id);
+if(!chosenService)return;
+chosenPackage=chosenService.packages[Number(index)]||chosenService.packages[0];
+$("#sumService").textContent=chosenService.name;
+$("#sumPackage").textContent=chosenPackage;
+$("#site").classList.add("hidden");
+$("#checkout").classList.add("active");
+$("#status").className="status";
+window.scrollTo({top:0,behavior:"smooth"});
+}
+
+document.addEventListener("click",e=>{
+const b=e.target.closest("[data-order]");
+if(b)openCheckout(b.dataset.order,b.dataset.pack);
+});
+
+$("#back").onclick=()=>{
+$("#checkout").classList.remove("active");
+$("#site").classList.remove("hidden");
+window.scrollTo({top:0,behavior:"smooth"});
+};
+
+document.querySelectorAll("[data-contact]").forEach(b=>{
+b.onclick=()=>{
+contactMethod=b.dataset.contact;
+document.querySelectorAll("[data-contact]").forEach(x=>x.classList.toggle("active",x===b));
+document.querySelectorAll(".contactField").forEach(x=>x.classList.remove("active"));
+$("#"+contactMethod+"Field").classList.add("active");
+};
+});
+
+$("#orderForm").addEventListener("submit",async e=>{
+e.preventDefault();
+const status=$("#status"),btn=$("#submitOrder");
+const email=$("#email").value.trim();
+const phone=$("#phone").value.trim();
+const whatsapp=$("#whatsapp").value.trim();
+const validPhone=x=>x.replace(/\D/g,"").length>=7;
+const validEmail=email&&$("#email").checkValidity();
+
+status.className="status show";
+
+if(!validEmail&&!validPhone(phone)&&!validPhone(whatsapp)){
+status.classList.add("error");
+status.textContent="Please provide at least one valid email address, phone number, or WhatsApp number.";
+return;
+}
+
+const order={
+customer:{
+name:$("#name").value.trim(),
+company:$("#company").value.trim(),
+email,phone,whatsapp
+},
+service:{id:chosenService.id,name:chosenService.name},
+package:{name:chosenPackage,price:"Custom quote"},
+brief:$("#brief").value.trim(),
+budget:$("#budget").value
+};
+
+if(!ORDER_API_URL){
+status.classList.add("error");
+status.textContent="Your form is valid, but automatic order submission is not connected yet. No order has been saved or emailed. Please email mapmorphixstd@gmail.com to submit this request.";
+return;
+}
+
+btn.disabled=true;
+btn.textContent="Submitting…";
+
+try{
+const response=await fetch(ORDER_API_URL,{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify(order)
+});
+const data=await response.json();
+if(!response.ok||data.ok!==true||!data.orderNumber)throw new Error(data.message||"Order was not confirmed");
+status.classList.add("success");
+status.textContent="Order confirmed! Your order number is #"+data.orderNumber+".";
+$("#orderForm").reset();
+}catch(err){
+status.classList.add("error");
+status.textContent="Order not confirmed. Please email "+EMAIL_TO+". "+err.message;
+}finally{
+btn.disabled=false;
+btn.textContent="Send project request ↗";
+}
+});
+
+$("#enquiry").addEventListener("submit",e=>{
+e.preventDefault();
+const subject=encodeURIComponent("MapMorphix Studio enquiry — "+$("#enService").value);
+const body=encodeURIComponent(
+"Name: "+$("#enName").value+
+"\nContact: "+$("#enContact").value+
+"\nService: "+$("#enService").value+
+"\n\nProject details:\n"+$("#enBrief").value
+);
+location.href=`mailto:${EMAIL_TO}?subject=${subject}&body=${body}`;
+});
+</script>
+</body>
+</html>
